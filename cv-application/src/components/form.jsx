@@ -32,6 +32,7 @@ function Form(props){
                 newNode.prev = this.tail;
                 this.tail = newNode;
             }
+            this.length++;
         }
     }
 
@@ -44,13 +45,48 @@ function Form(props){
     let number = props.number;
     let setNumber = props.setNumber;
 
+    let tbFlag=false;
+
     let expList = new dblTable();
+
     function handleClick(){
-        let compList = document.getElementbyId('company');
-        let titleList = document.getElementbyId('title');
-        let startList = document.getElementById('startDate');
-        expList.push(compList.value);
+        let compList = document.querySelector('#company');
+        let titleList = document.querySelector('#title');
+        let startList = document.querySelector('#startDate');
+        let endList = document.querySelector('#endDate');
+        let descList = document.querySelector('#desc');
+        if(document.querySelector('#endDate').disabled){
+            expList.push(compList.value, titleList.value, startList.value, "TILL DATE", descList);
+        }else{
+            expList.push(compList.value, titleList.value, startList.value, endList.value, descList);
+        }
         console.log(expList);
+        if(!tbFlag){
+            console.log(document.querySelector('.experience').childNodes);
+            let expTable = document.createElement("table");
+            document.querySelector(".experience").appendChild(expTable);
+            let exptr = document.createElement('tr');
+            expTable.appendChild(exptr);
+            let expth = document.createElement('th');
+            expth.innerText = titleList.value;
+            exptr.appendChild(expth);
+            let comptb = document.createElement('td');
+            comptb.innerText = compList.value;
+            exptr.appendChild(comptb);
+
+            let deleteSy = document.createElement('td');
+            exptr.appendChild(deleteSy);
+            deleteSy.appendChild(document.createElement('img'), {src:'src/assets/icons8-delete.svg'});
+            tbFlag = true;
+        }
+    }
+
+    function disableEnd(){
+        if(document.querySelector("#tillDate").checked){
+            document.querySelector("#endDate").disabled = true;
+        } else{
+            document.querySelector("#endDate").disabled = false;
+        }
     }
 
     return(
@@ -69,6 +105,9 @@ function Form(props){
                 <p>Start Date:</p>
                 <input type='date' id='startDate' name='startDate'></input>
                 <p>End Date:</p>
+                <fieldset>
+                    <p>Till Date?</p><input type='checkbox' id='tillDate' name='tillDate' onClick={disableEnd}></input>
+                </fieldset>
                 <input type='date' id='endDate' name='endDate'></input>
                 <textarea placeholder='Description' id='desc'></textarea>
                 <button type='submit' id='expsub' onClick={handleClick}>ADD+</button>

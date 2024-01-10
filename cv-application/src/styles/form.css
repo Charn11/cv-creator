@@ -55,3 +55,10 @@ input:focus{
     align-self: center;
     text-align: center;
 }
+fieldset{
+    display: flex;
+    max-height: 100%;
+    margin: 1%;
+    max-width: 50%;
+    gap: 2%
+}
