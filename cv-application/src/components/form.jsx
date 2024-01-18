@@ -45,6 +45,7 @@ function Form(props){
     let number = props.number;
     let setNumber = props.setNumber;
 
+
     let tbFlag=false;
 
     let expList = new dblTable();
@@ -60,25 +61,31 @@ function Form(props){
         }else{
             expList.push(compList.value, titleList.value, startList.value, endList.value, descList);
         }
-        console.log(expList);
-        if(!tbFlag){
-            console.log(document.querySelector('.experience').childNodes);
-            let expTable = document.createElement("table");
-            document.querySelector(".experience").appendChild(expTable);
-            let exptr = document.createElement('tr');
-            expTable.appendChild(exptr);
-            let expth = document.createElement('th');
-            expth.innerText = titleList.value;
-            exptr.appendChild(expth);
-            let comptb = document.createElement('td');
-            comptb.innerText = compList.value;
-            exptr.appendChild(comptb);
 
-            let deleteSy = document.createElement('td');
-            exptr.appendChild(deleteSy);
-            deleteSy.appendChild(document.createElement('img'), {src:'src/assets/icons8-delete.svg'});
+        console.log(expList);
+
+        addTable(titleList,compList);
+    }
+
+    function addTable(titleList, compList){
+        let expTable = document.createElement("table");
+        
+        if(!tbFlag){
+            document.querySelector(".experience").appendChild(expTable);
             tbFlag = true;
         }
+        let exptr = document.createElement('tr');
+        expTable.appendChild(exptr);
+        let expth = document.createElement('th');
+        expth.innerText = titleList.value;
+        exptr.appendChild(expth);
+        let comptb = document.createElement('td');
+        comptb.innerText = compList.value;
+        exptr.appendChild(comptb);
+
+        let deleteSy = document.createElement('td');
+        exptr.appendChild(deleteSy);
+        deleteSy.appendChild(document.createElement('img'), {src:'src/assets/icons8-delete.svg'});
     }
 
     function disableEnd(){

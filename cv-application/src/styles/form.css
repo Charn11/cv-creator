@@ -62,3 +62,12 @@ fieldset{
     max-width: 50%;
     gap: 2%
 }
+.delIcon{
+    background-color: antiquewhite;
+    width: 30px;
+    cursor: pointer;
+    
+}
+.delIcon:hover{
+    background-color: black;
+}
